@@ -18,17 +18,20 @@ using MinimalApi.Infraestrutura.Db;
 
 public class Startup
 {
+    private string key = "";
+    private string connectionString = "";
+    public IConfiguration Configuration { get; set; } = default!;
+
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
-        key = Configuration?.GetSection("Jwt")?.ToString() ?? "";
+        key = Configuration.GetSection("Jwt").ToString() ?? "";
+        connectionString = Configuration?.GetConnectionString("MySql") ?? "";
     }
-
-    private string key = "";
-    public IConfiguration Configuration { get;set; } = default!;
 
     public void ConfigureServices(IServiceCollection services)
     {
+
         services.AddAuthentication(option => {
             option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -72,12 +75,8 @@ public class Startup
             });
         });
 
-        services.AddDbContext<DbContexto>(options => {
-            options.UseMySql(
-                Configuration.GetConnectionString("MySql"),
-                ServerVersion.AutoDetect(Configuration.GetConnectionString("MySql"))
-            );
-        });
+        services.AddDbContext<DbContexto>(options =>
+            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
         services.AddCors(options =>
         {

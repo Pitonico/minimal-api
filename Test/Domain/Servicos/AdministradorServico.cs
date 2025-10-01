@@ -12,17 +12,11 @@ public class AdministradorServicoTest
 {
     private DbContexto CriarContextoDeTeste()
     {
-        var assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        var path = Path.GetFullPath(Path.Combine(assemblyPath ?? "", "..", "..", ".."));
+        var options = new DbContextOptionsBuilder<DbContexto>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
 
-        var builder = new ConfigurationBuilder()
-            .SetBasePath(path ?? Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddEnvironmentVariables();
-
-        var configuration = builder.Build();
-
-        return new DbContexto(configuration);
+        return new DbContexto(options);
     }
 
 
@@ -31,7 +25,6 @@ public class AdministradorServicoTest
     {
         // Arrange
         var context = CriarContextoDeTeste();
-        context.Database.ExecuteSqlRaw("TRUNCATE TABLE Administradores");
 
         var adm = new Administrador();
         adm.Email = "teste@teste.com";
@@ -52,7 +45,6 @@ public class AdministradorServicoTest
     {
         // Arrange
         var context = CriarContextoDeTeste();
-        context.Database.ExecuteSqlRaw("TRUNCATE TABLE Administradores");
 
         var adm = new Administrador();
         adm.Email = "teste@teste.com";
