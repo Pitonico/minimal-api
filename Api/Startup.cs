@@ -160,7 +160,6 @@ public class Startup
                 }
                 return Results.Ok(adms);
             })
-            .RequireAuthorization()
             .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Administradores");
 
@@ -173,7 +172,6 @@ public class Startup
                         Perfil = administrador.Perfil
                 });
             })
-            .RequireAuthorization()
             .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Administradores");
 
@@ -207,7 +205,6 @@ public class Startup
                 });
                 
             })
-            .RequireAuthorization()
             .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Administradores");
             #endregion
@@ -245,7 +242,6 @@ public class Startup
 
                 return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
             })
-            .RequireAuthorization()
             .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
             .WithTags("Veiculos");
 
@@ -260,7 +256,6 @@ public class Startup
                 if(veiculo == null) return Results.NotFound();
                 return Results.Ok(veiculo);
             })
-            .RequireAuthorization()
             .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
             .WithTags("Veiculos");
 
@@ -280,7 +275,6 @@ public class Startup
 
                 return Results.Ok(veiculo);
             })
-            .RequireAuthorization()
             .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Veiculos");
 
@@ -292,7 +286,6 @@ public class Startup
 
                 return Results.NoContent();
             })
-            .RequireAuthorization()
             .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
             .WithTags("Veiculos");
             #endregion
