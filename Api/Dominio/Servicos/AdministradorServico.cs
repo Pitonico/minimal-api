@@ -2,6 +2,7 @@ using MinimalApi.Dominio.Entidades;
 using MinimalApi.DTOs;
 using MinimalApi.Infraestrutura.Db;
 using MinimalApi.Dominio.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MinimalApi.Dominio.Servicos;
 
@@ -13,23 +14,29 @@ public class AdministradorServico : IAdministradorServico
         _contexto = contexto;
     }
 
+    public Administrador? Atualizar(Administrador administrador)
+    {
+        _contexto.Administradores.Update(administrador);
+        _contexto.SaveChanges();
+        return administrador;
+    }
+
     public Administrador? BuscaPorId(int id)
     {
-        return _contexto.Administradores.Where(v => v.Id == id).FirstOrDefault();
+        return _contexto.Administradores.FirstOrDefault(adm => adm.Id == id);
     }
 
     public Administrador Incluir(Administrador administrador)
     {
         _contexto.Administradores.Add(administrador);
         _contexto.SaveChanges();
-
         return administrador;
     }
 
     public Administrador? Login(LoginDTO loginDTO)
     {
-        var adm = _contexto.Administradores.Where(a => a.Email == loginDTO.Email && a.Senha == loginDTO.Senha).FirstOrDefault();
-        return adm;
+        return _contexto.Administradores.FirstOrDefault(
+            adm => adm.Email == loginDTO.Email && adm.Senha == loginDTO.Senha);
     }
 
     public List<Administrador> Todos(int? pagina)

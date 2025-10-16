@@ -14,13 +14,13 @@ public class VeiculoTest
         // Act
             Id = 1,
             Marca = "Toyota",
-            Nome = "Hilux",
+            Modelo = "Hilux",
             Ano = 2020
         };
         // Assert
         Assert.AreEqual(1, veiculo.Id);
         Assert.AreEqual("Toyota", veiculo.Marca);
-        Assert.AreEqual("Hilux", veiculo.Nome);
+        Assert.AreEqual("Hilux", veiculo.Modelo);
         Assert.AreEqual(2020, veiculo.Ano);
     }
 }

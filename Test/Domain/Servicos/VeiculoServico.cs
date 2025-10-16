@@ -35,7 +35,7 @@ public class VeiculoServicoCrudTest
         var veiculo = new Veiculo
         {
             Marca = "Toyota",
-            Nome = "Hilux",
+            Modelo = "Hilux",
             Ano = 2020
         };
 
@@ -45,7 +45,7 @@ public class VeiculoServicoCrudTest
 
         // Assert
         Assert.AreEqual(1, lista.Count);
-        Assert.AreEqual("Hilux", lista[0].Nome);
+        Assert.AreEqual("Hilux", lista[0].Modelo);
     }
 
     [TestMethod]
@@ -55,7 +55,7 @@ public class VeiculoServicoCrudTest
         var veiculo = new Veiculo
         {
             Marca = "Honda",
-            Nome = "Civic",
+            Modelo = "Civic",
             Ano = 2022
         };
 
@@ -66,7 +66,7 @@ public class VeiculoServicoCrudTest
 
         // Assert
         Assert.IsNotNull(veiculoBanco);
-        Assert.AreEqual("Civic", veiculoBanco?.Nome);
+        Assert.AreEqual("Civic", veiculoBanco?.Modelo);
     }
 
     [TestMethod]
@@ -76,21 +76,21 @@ public class VeiculoServicoCrudTest
         var veiculo = new Veiculo
         {
             Marca = "Ford",
-            Nome = "Ranger",
+            Modelo = "Ranger",
             Ano = 2018
         };
 
         _veiculoServico.Incluir(veiculo);
 
         // Act - atualizando
-        veiculo.Nome = "Ranger XLS";
+        veiculo.Modelo = "Ranger XLS";
         _veiculoServico.Atualizar(veiculo);
 
         var veiculoBanco = _veiculoServico.BuscaPorId(veiculo.Id);
 
         // Assert
         Assert.IsNotNull(veiculoBanco);
-        Assert.AreEqual("Ranger XLS", veiculoBanco?.Nome);
+        Assert.AreEqual("Ranger XLS", veiculoBanco?.Modelo);
     }
 
     [TestMethod]
@@ -100,7 +100,7 @@ public class VeiculoServicoCrudTest
         var veiculo = new Veiculo
         {
             Marca = "Chevrolet",
-            Nome = "S10",
+            Modelo = "S10",
             Ano = 2019
         };
 
@@ -118,15 +118,15 @@ public class VeiculoServicoCrudTest
     public void DeveListarTodosVeiculos()
     {
         // Arrange
-        _veiculoServico.Incluir(new Veiculo { Marca = "Toyota", Nome = "Hilux", Ano = 2020 });
-        _veiculoServico.Incluir(new Veiculo { Marca = "Honda", Nome = "Civic", Ano = 2022 });
+        _veiculoServico.Incluir(new Veiculo { Marca = "Toyota", Modelo = "Hilux", Ano = 2020 });
+        _veiculoServico.Incluir(new Veiculo { Marca = "Honda", Modelo = "Civic", Ano = 2022 });
 
         // Act
         var lista = _veiculoServico.Todos(1);
 
         // Assert
         Assert.AreEqual(2, lista.Count);
-        Assert.IsTrue(lista.Any(v => v.Nome == "Hilux"));
-        Assert.IsTrue(lista.Any(v => v.Nome == "Civic"));
+        Assert.IsTrue(lista.Any(v => v.Modelo == "Hilux"));
+        Assert.IsTrue(lista.Any(v => v.Modelo == "Civic"));
     }
 }

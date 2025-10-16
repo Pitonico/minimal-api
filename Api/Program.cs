@@ -1,6 +1,7 @@
 using MinimalApi;
+using MinimalApi.Api;
 
-IHostBuilder CreateHostBuilder(string[] args){
+static IHostBuilder CreateHostBuilder(string[] args){
   return Host.CreateDefaultBuilder(args)
     .ConfigureWebHostDefaults(webBuilder =>
     {

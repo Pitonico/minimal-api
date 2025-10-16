@@ -21,7 +21,18 @@ public class AdministradorServicoMock : IAdministradorServico
         }
     };
 
-    public Administrador? BuscaPorId(int id)
+    public Administrador? Atualizar(Administrador administrador)
+    {
+        var adm = administradores.Find(adm => adm.Id == administrador.Id);
+        if (adm != null)
+        {
+            adm.Email = administrador.Email;
+            adm.Senha = administrador.Senha;
+        }
+        return adm;
+    }
+
+  public Administrador? BuscaPorId(int id)
     {
         return administradores.Find(a => a.Id == id);
     }

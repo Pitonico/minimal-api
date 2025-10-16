@@ -26,10 +26,7 @@ public class AdministradorRequestTest
     public async Task TestarGetSetPropriedades()
     {
         // Arrange
-        var loginDTO = new LoginDTO{
-            Email = "adm@teste.com",
-            Senha = "123456"
-        };
+        var loginDTO = new LoginDTO { Email = "adm@teste.com", Senha = "123456" };
 
         var content = new StringContent(JsonSerializer.Serialize(loginDTO), Encoding.UTF8,  "Application/json");
 

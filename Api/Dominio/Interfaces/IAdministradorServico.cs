@@ -10,4 +10,5 @@ public interface IAdministradorServico
     Administrador Incluir(Administrador administrador);
     Administrador? BuscaPorId(int id);
     List<Administrador> Todos(int? pagina);
+    Administrador? Atualizar(Administrador administrador);
 }
